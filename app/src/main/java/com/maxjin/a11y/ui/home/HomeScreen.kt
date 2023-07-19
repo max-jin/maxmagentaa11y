@@ -2,27 +2,32 @@ package com.maxjin.a11y.ui.home
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
+import com.maxjin.a11y.ui.util.HorizontalDivider
 import com.maxjin.a11y.ui.util.RoundedCornerShapeLarge
 import com.maxjin.a11y.ui.util.dimenB0
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
-import com.maxjin.a11y.ui.util.dimenB8
 import com.maxjin.a11y.ui.util.verticalGradient
 
 // TODO ADD Compose Nav, Component screens - Button, Link, CheckBox, Toggle Switch,
@@ -57,15 +62,37 @@ fun HomeCard(buttonList: List<String>) {
             .clip(shape = RoundedCornerShapeLarge)
             .background(color = MaterialTheme.colorScheme.background)
     ) {
-        buttonList.forEach {
-            Column(
+        buttonList.forEachIndexed { index, s ->
+            Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(dimenB8)
-                    .clickable(onClick = {}, role = Role.Button),
-                verticalArrangement = Arrangement.Center
+                    .height(IntrinsicSize.Min)
+                    .clickable(onClick = {}, role = Role.Button)
             ) {
-                Text(modifier = Modifier.padding(start = dimenB5), text = it, style = MaterialTheme.typography.titleLarge, color = MaterialTheme.colorScheme.onBackground)
+                Column(
+                    modifier = Modifier
+                        .padding(top = dimenB4, bottom = dimenB4, start = dimenB5)
+                        .align(Alignment.CenterStart)
+                ) {
+                    Text(
+                        text = s,
+                        textAlign = TextAlign.Start,
+                        style = MaterialTheme.typography.titleMedium,
+                    )
+                }
+                Icon(
+                    modifier = Modifier
+                        .align(Alignment.CenterEnd)
+                        .padding(end = dimenB5),
+                    imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.onBackground
+                )
+                if (index < buttonList.lastIndex) {
+                    HorizontalDivider(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .align(Alignment.BottomCenter), color = MaterialTheme.colorScheme.primaryContainer
+                    )
+                }
             }
         }
     }
