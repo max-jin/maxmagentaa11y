@@ -1,3 +1,8 @@
+/*
+ * 2023 - Developed by Max Jin
+ * Source code subject to change. Refer to NOTICE.txt in source tree for changes and attributions.
+ */
+
 package com.maxjin.a11y.ui.home
 
 import androidx.compose.foundation.background
@@ -10,6 +15,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material3.Icon
@@ -22,12 +29,14 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import com.maxjin.a11y.core.component.Component
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
-import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.RoundedCornerShapeLarge
+import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.dimenB0
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
+import com.maxjin.a11y.ui.util.dimenB7
 import com.maxjin.a11y.ui.util.verticalGradient
 
 // TODO ADD Compose Nav, Component screens - Button, Link, CheckBox, Toggle Switch,
@@ -37,24 +46,26 @@ fun HomeScreen(modifier: Modifier = Modifier) {
         modifier = modifier
             .fillMaxSize()
             .verticalGradient()
+            .verticalScroll(rememberScrollState())
     ) {
         Spacer(modifier = Modifier.height(dimenB5))
         Text(
             text = "Welcome to \nMagenta A11Y!",
-            modifier = Modifier.fillMaxWidth(),
-            textAlign = TextAlign.Center,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = dimenB7),
+            textAlign = TextAlign.Start,
             color = MaterialTheme.colorScheme.onBackground,
             style = MaterialTheme.typography.headlineLarge
         )
-        Spacer(modifier = Modifier.height(dimenB4))
-        HomeCard(
-            listOf("Button", "Link", "Switch", "CheckBox", "RadioButton", "TextField")
-        )
+        Spacer(modifier = Modifier.height(dimenB5))
+        HomeCard(Component.allComponents)
+        Spacer(modifier = Modifier.height(dimenB5))
     }
 }
 
 @Composable
-fun HomeCard(buttonList: List<String>) {
+fun HomeCard(buttonList: List<Component>) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -62,12 +73,16 @@ fun HomeCard(buttonList: List<String>) {
             .clip(shape = RoundedCornerShapeLarge)
             .background(color = MaterialTheme.colorScheme.background)
     ) {
-        buttonList.forEachIndexed { index, s ->
+        buttonList.forEachIndexed { index, component ->
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(IntrinsicSize.Min)
-                    .clickable(onClick = {}, role = Role.Button)
+                    .clickable(onClick = {}, role = Role.Button, enabled = component.available)
+                    .background(
+                        color = if (component.available) MaterialTheme.colorScheme.background else
+                            MaterialTheme.colorScheme.inverseOnSurface
+                    )
             ) {
                 Column(
                     modifier = Modifier
@@ -75,17 +90,19 @@ fun HomeCard(buttonList: List<String>) {
                         .align(Alignment.CenterStart)
                 ) {
                     Text(
-                        text = s,
+                        text = component.name,
                         textAlign = TextAlign.Start,
                         style = MaterialTheme.typography.titleMedium,
                     )
                 }
-                Icon(
-                    modifier = Modifier
-                        .align(Alignment.CenterEnd)
-                        .padding(end = dimenB5),
-                    imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.onBackground
-                )
+                if (component.available) {
+                    Icon(
+                        modifier = Modifier
+                            .align(Alignment.CenterEnd)
+                            .padding(end = dimenB5),
+                        imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.onBackground
+                    )
+                }
                 if (index < buttonList.lastIndex) {
                     HorizontalDivider(
                         modifier = Modifier
@@ -100,7 +117,7 @@ fun HomeCard(buttonList: List<String>) {
 
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
-fun GreetingPreview() {
+fun HomeScreenPreview() {
     MagentaA11yTheme {
         HomeScreen()
     }
