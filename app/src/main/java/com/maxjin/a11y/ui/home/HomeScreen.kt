@@ -23,7 +23,7 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
-import com.maxjin.a11y.ui.util.HorizontalDivider
+import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.RoundedCornerShapeLarge
 import com.maxjin.a11y.ui.util.dimenB0
 import com.maxjin.a11y.ui.util.dimenB4

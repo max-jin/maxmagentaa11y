@@ -3,7 +3,7 @@
  * Source code subject to change. Refer to NOTICE.txt in source tree for changes and attributions.
  */
 
-package com.maxjin.a11y.ui.util
+package com.maxjin.a11y.ui.util.composable
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
