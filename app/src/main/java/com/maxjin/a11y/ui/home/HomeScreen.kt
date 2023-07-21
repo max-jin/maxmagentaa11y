@@ -19,13 +19,21 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -35,49 +43,56 @@ import com.maxjin.a11y.ui.nav.NavDestination
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.RoundedCornerShapeLarge
 import com.maxjin.a11y.ui.util.composable.HorizontalDivider
+import com.maxjin.a11y.ui.util.composable.LargeTopBar
 import com.maxjin.a11y.ui.util.dimenB0
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
-import com.maxjin.a11y.ui.util.dimenB6
-import com.maxjin.a11y.ui.util.dimenB7
 import com.maxjin.a11y.ui.util.ext.verticalGradient
 
-// TODO ADD Compose Nav, Component screens - Button, Link, CheckBox, Toggle Switch,
+// TODO ADD Component screens - Button, Link, CheckBox, Toggle Switch,
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
     navigateAction: (NavDestination) -> Unit
 ) {
-    Column(
-        modifier = modifier
-            .fillMaxSize()
-            .verticalGradient()
-            .verticalScroll(rememberScrollState())
-    ) {
-        Spacer(modifier = Modifier.height(dimenB5))
-        Text(
-            text = "Welcome to \nMagenta A11Y!",
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(start = dimenB7),
-            textAlign = TextAlign.Start,
-            color = MaterialTheme.colorScheme.primary,
-            style = MaterialTheme.typography.headlineLarge
-        )
-        Spacer(modifier = Modifier.height(dimenB5))
-        Component.allComponents.let { list ->
-            list.filter { it.available }.let { availableList ->
-                HomeCardTitle("Controls")
-                HomeCard(availableList.filter { it.type == ComponentType.CONTROL }, navigateAction)
-                HomeCardTitle("Notifications")
-                HomeCard(availableList.filter { it.type == ComponentType.NOTIFICATION }, navigateAction)
+    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
+    val topAppBarOnCollapse by remember { derivedStateOf { scrollBehavior.state.collapsedFraction > 0.2f } }
+
+    Scaffold(
+        containerColor = Color.Transparent,
+        modifier = Modifier
+            .nestedScroll(scrollBehavior.nestedScrollConnection)
+            .verticalGradient(),
+        topBar = {
+            LargeTopBar(
+                title = if (topAppBarOnCollapse) "Magenta A11Y" else "Welcome to \nMagenta A11Y",
+                scrollBehavior = scrollBehavior
+            )
+        },
+        content = { innerPadding ->
+            Column(
+                modifier = modifier
+                    .padding(innerPadding)
+                    .fillMaxSize()
+                    .verticalScroll(rememberScrollState())
+            ) {
+                Component.allComponents.let { list ->
+                    list.filter { it.available }.let { availableList ->
+                        HomeCardTitle("Controls")
+                        HomeCard(availableList.filter { it.type == ComponentType.CONTROL }, navigateAction)
+                        HomeCardTitle("Notifications")
+                        HomeCard(availableList.filter { it.type == ComponentType.NOTIFICATION }, navigateAction)
+                    }
+                    HomeCardTitle("Work in progress")
+                    HomeCard(list.filter { !it.available }, navigateAction)
+                }
+                Spacer(modifier = Modifier.height(dimenB5))
             }
-            HomeCardTitle("Work in progress")
-            HomeCard(list.filter { !it.available }, navigateAction)
         }
-        Spacer(modifier = Modifier.height(dimenB5))
-    }
+    )
+
 }
 
 @Composable
@@ -86,7 +101,7 @@ fun HomeCardTitle(title: String) {
         text = title,
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = dimenB6, top = dimenB4, bottom = dimenB3),
+            .padding(start = dimenB5, top = dimenB4, bottom = dimenB3),
         textAlign = TextAlign.Start,
         color = MaterialTheme.colorScheme.onBackground,
         style = MaterialTheme.typography.titleMedium
