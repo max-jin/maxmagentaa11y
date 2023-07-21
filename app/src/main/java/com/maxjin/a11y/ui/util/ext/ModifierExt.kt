@@ -5,7 +5,7 @@
 
 @file:Suppress("unused")
 
-package com.maxjin.a11y.ui.util
+package com.maxjin.a11y.ui.util.ext
 
 import android.view.KeyEvent
 import androidx.compose.foundation.background

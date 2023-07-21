@@ -41,7 +41,7 @@ import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
 import com.maxjin.a11y.ui.util.dimenB6
 import com.maxjin.a11y.ui.util.dimenB7
-import com.maxjin.a11y.ui.util.verticalGradient
+import com.maxjin.a11y.ui.util.ext.verticalGradient
 
 // TODO ADD Compose Nav, Component screens - Button, Link, CheckBox, Toggle Switch,
 @Composable

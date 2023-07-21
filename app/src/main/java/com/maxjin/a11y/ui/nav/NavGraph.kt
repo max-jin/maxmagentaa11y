@@ -11,7 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.maxjin.a11y.ui.button.ButtonScreen
 import com.maxjin.a11y.ui.home.HomeScreen
-import com.maxjin.a11y.ui.util.navigateToComponent
+import com.maxjin.a11y.ui.util.ext.navigateToComponent
 
 @Composable
 fun NavGraph(
