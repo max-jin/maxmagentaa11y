@@ -30,18 +30,25 @@ import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.core.component.Component
+import com.maxjin.a11y.core.component.ComponentType
+import com.maxjin.a11y.ui.nav.NavDestination
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.RoundedCornerShapeLarge
 import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.dimenB0
+import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
+import com.maxjin.a11y.ui.util.dimenB6
 import com.maxjin.a11y.ui.util.dimenB7
 import com.maxjin.a11y.ui.util.verticalGradient
 
 // TODO ADD Compose Nav, Component screens - Button, Link, CheckBox, Toggle Switch,
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    navigateAction: (NavDestination) -> Unit
+) {
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -55,17 +62,39 @@ fun HomeScreen(modifier: Modifier = Modifier) {
                 .fillMaxWidth()
                 .padding(start = dimenB7),
             textAlign = TextAlign.Start,
-            color = MaterialTheme.colorScheme.onBackground,
+            color = MaterialTheme.colorScheme.primary,
             style = MaterialTheme.typography.headlineLarge
         )
         Spacer(modifier = Modifier.height(dimenB5))
-        HomeCard(Component.allComponents)
+        Component.allComponents.let { list ->
+            list.filter { it.available }.let { availableList ->
+                HomeCardTitle("Controls")
+                HomeCard(availableList.filter { it.type == ComponentType.CONTROL }, navigateAction)
+                HomeCardTitle("Notifications")
+                HomeCard(availableList.filter { it.type == ComponentType.NOTIFICATION }, navigateAction)
+            }
+            HomeCardTitle("Work in progress")
+            HomeCard(list.filter { !it.available }, navigateAction)
+        }
         Spacer(modifier = Modifier.height(dimenB5))
     }
 }
 
 @Composable
-fun HomeCard(buttonList: List<Component>) {
+fun HomeCardTitle(title: String) {
+    Text(
+        text = title,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(start = dimenB6, top = dimenB4, bottom = dimenB3),
+        textAlign = TextAlign.Start,
+        color = MaterialTheme.colorScheme.onBackground,
+        style = MaterialTheme.typography.titleMedium
+    )
+}
+
+@Composable
+fun HomeCard(buttonList: List<Component>, navigateAction: (NavDestination) -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -78,7 +107,9 @@ fun HomeCard(buttonList: List<Component>) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(IntrinsicSize.Min)
-                    .clickable(onClick = {}, role = Role.Button, enabled = component.available)
+                    .clickable(onClick = {
+                        navigateAction(component.navDestination)
+                    }, role = Role.Button, enabled = component.available)
                     .background(
                         color = if (component.available) MaterialTheme.colorScheme.background else
                             MaterialTheme.colorScheme.inverseOnSurface
@@ -93,6 +124,7 @@ fun HomeCard(buttonList: List<Component>) {
                         text = component.name,
                         textAlign = TextAlign.Start,
                         style = MaterialTheme.typography.titleMedium,
+                        color = if (component.available) MaterialTheme.colorScheme.onBackground else MaterialTheme.colorScheme.outline
                     )
                 }
                 if (component.available) {
@@ -119,6 +151,6 @@ fun HomeCard(buttonList: List<Component>) {
 @Composable
 fun HomeScreenPreview() {
     MagentaA11yTheme {
-        HomeScreen()
+        HomeScreen(navigateAction = {})
     }
 }
