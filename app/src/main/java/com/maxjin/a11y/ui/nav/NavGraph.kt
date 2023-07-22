@@ -23,7 +23,7 @@ fun NavGraph(
             HomeScreen(navigateAction = { navController.navigateToComponent(it) })
         }
         composable(route = NavDestination.COMPONENT_BUTTON.id) {
-            ButtonScreen()
+            ButtonScreen(navigateUp = { navController.navigateUp() })
         }
         composable(route = NavDestination.COMPONENT_CHECKBOX.id) {
             ButtonScreen()

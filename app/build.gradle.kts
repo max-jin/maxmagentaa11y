@@ -58,6 +58,7 @@ dependencies {
     implementation(libs.androidxcomposeUiGraphics)
     implementation(libs.androidxcomposeUiToolingPreview)
     implementation(libs.androidxcomposeMaterial3)
+    implementation(libs.androidxcomposeMaterialIconsExtented)
     implementation(libs.androidxNavigationCompose)
 
     testImplementation(libs.junit4)

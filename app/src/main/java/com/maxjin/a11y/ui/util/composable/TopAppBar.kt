@@ -5,11 +5,8 @@
 
 package com.maxjin.a11y.ui.util.composable
 
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Search
+import androidx.compose.foundation.layout.RowScope
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -22,7 +19,9 @@ import androidx.compose.ui.text.style.TextOverflow
 @Composable
 fun LargeTopBar(
     title: String,
+    navigationIcon: @Composable () -> Unit = {},
     scrollBehavior: TopAppBarScrollBehavior? = null,
+    actions: @Composable RowScope.() -> Unit = {},
 ) {
     LargeTopAppBar(
         colors = TopAppBarDefaults.largeTopAppBarColors(
@@ -36,14 +35,8 @@ fun LargeTopBar(
                 overflow = TextOverflow.Ellipsis
             )
         },
-        actions = {
-            IconButton(onClick = { /* doSomething() */ }) {
-                Icon(
-                    imageVector = Icons.Filled.Search,
-                    contentDescription = "Search Component"
-                )
-            }
-        },
+        navigationIcon = navigationIcon,
+        actions = actions,
         scrollBehavior = scrollBehavior
     )
 }

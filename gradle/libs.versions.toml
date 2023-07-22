@@ -28,6 +28,7 @@ androidxcomposeUi = { module = "androidx.compose.ui:ui" }
 androidxcomposeUiGraphics = { module = "androidx.compose.ui:ui-graphics" }
 androidxcomposeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidxcomposeMaterial3 = { module = "androidx.compose.material3:material3" }
+androidxcomposeMaterialIconsExtented = { module = "androidx.compose.material:material-icons-extended" }
 androidxNavigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigationCompose" }
 
 # Testing
