@@ -16,6 +16,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -25,6 +26,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.filled.Link
 import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.outlined.ContentCopy
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -39,6 +41,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.style.TextAlign
@@ -51,6 +54,7 @@ import com.maxjin.a11y.ui.util.dimenB2
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
+import com.maxjin.a11y.ui.util.ext.copyToClipBoard
 import com.maxjin.a11y.ui.util.ext.verticalGradient
 import com.maxjin.a11y.util.AppUtil
 import com.maxjin.a11y.util.component.Button
@@ -61,6 +65,7 @@ import com.maxjin.a11y.util.component.Button
 fun ButtonScreen(navigateUp: () -> Unit = {}) {
     val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val urlHandler = LocalUriHandler.current
+    val context = LocalContext.current
     Scaffold(
         containerColor = Color.Transparent,
         modifier = Modifier
@@ -110,18 +115,25 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                         Icon(Icons.Filled.Add, contentDescription = null)
                         Text(text = "Button", modifier = Modifier.padding(start = dimenB2))
                     }
+                    ButtonTitleView(
+                        "Disabled button", modifier = Modifier.padding(bottom = dimenB3, top = dimenB3)
+                    )
+                    Button(onClick = { /*TODO*/ }, enabled = false) {
+                        Icon(Icons.Filled.Add, contentDescription = null)
+                        Text(text = "Button", modifier = Modifier.padding(start = dimenB2))
+                    }
                     ButtonCommentsView(
-                        text = "When using the regular button from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
+                        text = "When using the button from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
                     HorizontalDivider(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = dimenB4),
+                            .padding(top = dimenB5),
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
                     ButtonTitleView(
-                        "Icon button", modifier = Modifier.padding(bottom = dimenB3, top = dimenB4)
+                        "Icon button", modifier = Modifier.padding(bottom = dimenB3, top = dimenB5)
                     )
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(Icons.Filled.ThumbUp, contentDescription = "thumb up", tint = MaterialTheme.colorScheme.primary)
@@ -133,11 +145,11 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                     HorizontalDivider(
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(top = dimenB4),
+                            .padding(top = dimenB5),
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
                     ButtonTitleView(
-                        "Custom button (Modifier.Clickable)", modifier = Modifier.padding(bottom = dimenB3, top = dimenB4)
+                        "Custom button (Modifier.Clickable)", modifier = Modifier.padding(bottom = dimenB3, top = dimenB5)
                     )
                     Box(
                         modifier = Modifier
@@ -150,7 +162,8 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                         Row(
                             modifier = Modifier
                                 .padding(top = dimenB3, bottom = dimenB3, start = dimenB4)
-                                .align(Alignment.CenterStart)
+                                .align(Alignment.CenterStart),
+                            verticalAlignment = Alignment.CenterVertically
                         ) {
                             Icon(Icons.Filled.Add, contentDescription = null, tint = MaterialTheme.colorScheme.background)
                             Text(
@@ -173,13 +186,32 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                         modifier = Modifier.padding(top = dimenB3)
                     )
                 }
-                ButtonTitleView("Code example", modifier = Modifier.padding(start = dimenB4, top = dimenB4, bottom = dimenB3))
+                Text(
+                    text = "Code example",
+                    modifier = Modifier.padding(start = dimenB4, top = dimenB3, bottom = dimenB3),
+                    textAlign = TextAlign.Start,
+                    color = MaterialTheme.colorScheme.onBackground,
+                    style = MaterialTheme.typography.titleSmall
+                )
                 Box(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                         .background(color = MaterialTheme.colorScheme.onPrimaryContainer, shape = RoundedCornerShape(size = 8.dp)),
                 ) {
+                    Icon(
+                        imageVector = Icons.Outlined.ContentCopy, contentDescription = "copy code",
+                        tint = MaterialTheme.colorScheme.primaryContainer,
+                        modifier = Modifier
+                            .padding(dimenB2)
+                            .align(Alignment.TopEnd)
+                            .size(20.dp)
+                            .clickable(
+                                onClick = { context.copyToClipBoard(Button.CODE_SNIPPET) },
+                                role = Role.Button
+                            )
+                    )
+
                     Text(
                         text = Button.CODE_SNIPPET,
                         modifier = Modifier
