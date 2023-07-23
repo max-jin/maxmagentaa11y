@@ -8,8 +8,11 @@ package com.maxjin.a11y.util
 object AppUtil {
 
     object WebLinks {
-        const val MAGENTA_A11Y_NATIVE_HOST = "https://www.magentaa11y.com/checklist-native"
+        private const val MAGENTA_A11Y_NATIVE_HOST = "https://www.magentaa11y.com/checklist-native"
         const val BUTTON_URL = "$MAGENTA_A11Y_NATIVE_HOST/button"
+        const val TOGGLE_SWITCH_URL = "$MAGENTA_A11Y_NATIVE_HOST/toggle-switch/"
+
+        const val ALERT_DIALOG_URL = "$MAGENTA_A11Y_NATIVE_HOST/alert-dialog/"
     }
 
 }
