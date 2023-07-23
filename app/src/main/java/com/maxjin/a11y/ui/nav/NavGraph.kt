@@ -9,6 +9,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.maxjin.a11y.ui.component.alert.AlertDialogScreen
 import com.maxjin.a11y.ui.component.button.ButtonScreen
 import com.maxjin.a11y.ui.component.toggleswitch.ToggleSwitchScreen
 import com.maxjin.a11y.ui.home.HomeScreen
@@ -42,7 +43,7 @@ fun NavGraph(
             ToggleSwitchScreen(navigateUp = { navController.navigateUp() })
         }
         composable(route = NavDestination.COMPONENT_ALERT_DIALOG.id) {
-            // TODO
+            AlertDialogScreen(navigateUp = { navController.navigateUp() })
         }
     }
 }
