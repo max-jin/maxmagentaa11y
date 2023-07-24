@@ -7,6 +7,7 @@ package com.maxjin.a11y.ui.nav
 
 enum class NavDestination(val id: String) {
     APP_HOME("APP_HOME"),
+    APP_SEARCH("APP_SEARCH"),
     COMPONENT_BUTTON("COMPONENT_BUTTON"),
     COMPONENT_CHECKBOX("COMPONENT_CHECKBOX"),
     COMPONENT_LINK("COMPONENT_LINK"),

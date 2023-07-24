@@ -74,7 +74,7 @@ fun HomeScreen(
                 title = if (topAppBarOnCollapse) "Magenta A11y" else "Welcome to \nMagenta A11y",
                 scrollBehavior = scrollBehavior,
                 actions = {
-                    IconButton(onClick = { /* doSomething() */ }) {
+                    IconButton(onClick = { navigateAction(NavDestination.APP_SEARCH) }) {
                         Icon(
                             imageVector = Icons.Filled.Search,
                             contentDescription = "Search Component"
