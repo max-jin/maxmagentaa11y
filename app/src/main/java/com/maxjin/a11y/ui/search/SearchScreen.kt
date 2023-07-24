@@ -6,6 +6,7 @@
 package com.maxjin.a11y.ui.search
 
 import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.animation.core.snap
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
@@ -34,6 +35,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
@@ -89,7 +91,8 @@ fun SearchScreen(
             }, modifier = Modifier.padding(top = dimenB3)) {
                 Icon(
                     imageVector = Icons.Filled.ArrowBack,
-                    contentDescription = "Search Component"
+                    contentDescription = "Search Component",
+                    tint = MaterialTheme.colorScheme.onBackground
                 )
             }
             SearchBar(
@@ -129,7 +132,7 @@ fun SearchScreen(
                                 ListItem(
                                     headlineContent = { Text(it.name) },
                                     modifier = Modifier
-                                        //.padding(end = dimenB6)
+                                        .padding(end = dimenB5)
                                         .clip(RoundedCornerShapeMedium)
                                         .clickable(
                                             onClick = {
@@ -154,7 +157,9 @@ fun SearchScreen(
         }
 
         AnimatedVisibility(
-            visible = (searchQuery.isEmpty() || !onSearchBarActive),
+            visibleState = remember { MutableTransitionState(false) }.apply {
+                targetState = (searchQuery.isEmpty() || !onSearchBarActive)
+            },
             enter = slideInVertically { it } + fadeIn(),
             exit = fadeOut(animationSpec = snap())
         ) {
@@ -163,14 +168,13 @@ fun SearchScreen(
                 verticalArrangement = Arrangement.spacedBy(dimenB2)
             ) {
                 item {
-                    Text(text = "Current available components", style = MaterialTheme.typography.titleMedium)
+                    Text(text = "Current available components", style = MaterialTheme.typography.titleMedium, color = MaterialTheme.colorScheme.onBackground)
                 }
                 Component.allComponents.filter { it.available }.forEach {
                     item {
                         ListItem(
                             headlineContent = { Text(it.name) },
                             modifier = Modifier
-                                .padding(end = dimenB6)
                                 .clip(RoundedCornerShapeMedium)
                                 .clickable(
                                     onClick = {
