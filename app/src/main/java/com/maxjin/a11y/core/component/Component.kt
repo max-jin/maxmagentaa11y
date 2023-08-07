@@ -39,7 +39,7 @@ data class Component(
                 Component("Toggle switch", listOf("Switch"), navDestination = NavDestination.COMPONENT_SWITCH),
                 Component("Alert Dialog", listOf("Alert"), available = true, type = ComponentType.NOTIFICATION, navDestination = NavDestination.COMPONENT_ALERT_DIALOG),
                 Component("Modal", listOf("Bottom sheet"), available = false, type = ComponentType.NOTIFICATION, navDestination = NavDestination.COMPONENT_ALERT_DIALOG),
-                Component("Toast snackbar banner", available = false, type = ComponentType.NOTIFICATION, navDestination = NavDestination.COMPONENT_BUTTON)
+                Component("Toast snackbar banner", available = true, type = ComponentType.NOTIFICATION, navDestination = NavDestination.COMPONENT_SNACKBAR)
             )
     }
 }
