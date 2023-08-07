@@ -13,6 +13,7 @@ object AppUtil {
         const val TOGGLE_SWITCH_URL = "$MAGENTA_A11Y_NATIVE_HOST/toggle-switch/"
 
         const val ALERT_DIALOG_URL = "$MAGENTA_A11Y_NATIVE_HOST/alert-dialog/"
+        const val SNACKBAR_URL = "$MAGENTA_A11Y_NATIVE_HOST/snackbar-toast/"
     }
 
 }
