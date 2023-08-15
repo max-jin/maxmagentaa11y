@@ -55,11 +55,15 @@ dependencies {
     implementation(libs.androidxActivityCompose)
     implementation(platform(libs.androidxComposeBom))
     implementation(libs.androidxcomposeUi)
+    implementation(libs.androidxcomposeUiUtil)
     implementation(libs.androidxcomposeUiGraphics)
     implementation(libs.androidxcomposeUiToolingPreview)
     implementation(libs.androidxcomposeMaterial3)
     implementation(libs.androidxcomposeMaterialIconsExtented)
     implementation(libs.androidxNavigationCompose)
+
+    // Coil
+    implementation(libs.coilCompose)
 
     testImplementation(libs.junit4)
     androidTestImplementation(libs.androidxTestExtJunit)

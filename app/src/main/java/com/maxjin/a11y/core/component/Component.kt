@@ -23,7 +23,7 @@ data class Component(
             get() = listOf(
                 Component("Button", navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Captcha", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
-                Component("Carousel", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
+                Component("Carousel", listOf("Pager"), available = true, navDestination = NavDestination.COMPONENT_CAROUSEL),
                 Component("CheckBox", available = false, navDestination = NavDestination.COMPONENT_CHECKBOX),
                 Component("Drawer / Snappable / Sheet", listOf("Menu", "Bottom Sheet", "BottomSheet"), available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Link", available = false, navDestination = NavDestination.COMPONENT_LINK),
