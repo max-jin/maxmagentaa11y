@@ -13,6 +13,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.composed
 import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 
 /**
@@ -34,14 +35,14 @@ fun Modifier.verticalGradient() = composed {
 /**
  * Main App background horizontalGradient effect
  */
-fun Modifier.horizontalGradient() = composed {
+fun Modifier.horizontalGradient(
+    startColor: Color? = null,
+    endColor: Color? = null
+) = composed {
     this.then(
         background(
             brush = Brush.horizontalGradient(
-                colors = listOf(
-                    MaterialTheme.colorScheme.primaryContainer,
-                    MaterialTheme.colorScheme.tertiaryContainer
-                )
+                colors = listOf(startColor ?: MaterialTheme.colorScheme.primaryContainer, endColor ?: MaterialTheme.colorScheme.tertiaryContainer)
             )
         )
     )

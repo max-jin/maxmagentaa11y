@@ -18,6 +18,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.maxjin.a11y.ui.component.alert.AlertDialogScreen
 import com.maxjin.a11y.ui.component.button.ButtonScreen
+import com.maxjin.a11y.ui.component.carousel.CarouselScreen
 import com.maxjin.a11y.ui.component.snackbar.SnackbarScreen
 import com.maxjin.a11y.ui.component.toggleswitch.ToggleSwitchScreen
 import com.maxjin.a11y.ui.home.HomeScreen
@@ -59,6 +60,9 @@ fun NavGraph(
         }
         composable(route = NavDestination.COMPONENT_SNACKBAR.id) {
             SnackbarScreen(navigateUp = { navController.navigateUp() })
+        }
+        composable(route = NavDestination.COMPONENT_CAROUSEL.id) {
+            CarouselScreen(navigateUp = { navController.navigateUp() })
         }
     }
 }

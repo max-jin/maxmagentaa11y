@@ -13,6 +13,9 @@ androidxComposeBom = "2023.06.01"
 androidxNavigationCompose = "2.6.0"
 kotlinCompilerExtension = "1.3.2"
 
+# Coil
+coilCompose = "2.4.0"
+
 # Testing
 junit4 = "4.13.2"
 androidxTestExtJunit = "1.1.5"
@@ -25,11 +28,14 @@ androidxLifecycleRuntime = { module = "androidx.lifecycle:lifecycle-runtime-ktx"
 androidxActivityCompose = { module = "androidx.activity:activity-compose", version.ref = "androidxActivityCompose" }
 androidxComposeBom = { module = "androidx.compose:compose-bom", version.ref = "androidxComposeBom" } # Platform
 androidxcomposeUi = { module = "androidx.compose.ui:ui" }
+androidxcomposeUiUtil = { module = "androidx.compose.ui:ui-util" }
 androidxcomposeUiGraphics = { module = "androidx.compose.ui:ui-graphics" }
 androidxcomposeUiToolingPreview = { module = "androidx.compose.ui:ui-tooling-preview" }
 androidxcomposeMaterial3 = { module = "androidx.compose.material3:material3" }
 androidxcomposeMaterialIconsExtented = { module = "androidx.compose.material:material-icons-extended" }
 androidxNavigationCompose = { module = "androidx.navigation:navigation-compose", version.ref = "androidxNavigationCompose" }
+# Coil
+coilCompose = { module = "io.coil-kt:coil-compose", version.ref = "coilCompose" }
 
 # Testing
 junit4 = { module = "junit:junit", version.ref = "junit4" }
