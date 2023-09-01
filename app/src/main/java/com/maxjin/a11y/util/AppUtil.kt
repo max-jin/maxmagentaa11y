@@ -15,6 +15,7 @@ object AppUtil {
 
         const val ALERT_DIALOG_URL = "$MAGENTA_A11Y_NATIVE_HOST/alert-dialog/"
         const val SNACKBAR_URL = "$MAGENTA_A11Y_NATIVE_HOST/snackbar-toast/"
+        const val SHEET_URL = "$MAGENTA_A11Y_NATIVE_HOST/snackbar-toast/" // TODO Update the url when ready
     }
 
 }

@@ -25,7 +25,7 @@ data class Component(
                 Component("Captcha", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Carousel", listOf("Pager"), available = true, navDestination = NavDestination.COMPONENT_CAROUSEL),
                 Component("CheckBox", available = false, navDestination = NavDestination.COMPONENT_CHECKBOX),
-                Component("Drawer / Snappable / Sheet", listOf("Menu", "Bottom Sheet", "BottomSheet"), available = false, navDestination = NavDestination.COMPONENT_BUTTON),
+                Component("Sheet", listOf("Menu", "Bottom Sheet", "BottomSheet", "Drawer", "SideSheet", "Snappable"), available = true, navDestination = NavDestination.COMPONENT_SHEET),
                 Component("Link", available = false, navDestination = NavDestination.COMPONENT_LINK),
                 Component("Menu", listOf("Drawer", "DropdownMenu", "DropdownTextBox", "DropdownMenuBox"), available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Pagination control", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
