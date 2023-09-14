@@ -35,7 +35,7 @@ data class Component(
                 Component("Segmented Control / Tab", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Stepper", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Table row button", listOf("LazyColumn"), available = false, navDestination = NavDestination.COMPONENT_BUTTON),
-                Component("Text input", listOf("TextField", "Text fields"), available = false, navDestination = NavDestination.COMPONENT_TEXT_FIELD),
+                Component("Text input", listOf("TextField", "Text fields"), available = true, navDestination = NavDestination.COMPONENT_TEXT_FIELD),
                 Component("Toggle switch", listOf("Switch"), navDestination = NavDestination.COMPONENT_SWITCH),
                 Component("Alert Dialog", listOf("Alert"), available = true, type = ComponentType.NOTIFICATION, navDestination = NavDestination.COMPONENT_ALERT_DIALOG),
                 Component("Modal", listOf("Bottom sheet"), available = false, type = ComponentType.NOTIFICATION, navDestination = NavDestination.COMPONENT_ALERT_DIALOG),

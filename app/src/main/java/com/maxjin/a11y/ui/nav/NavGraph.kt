@@ -21,6 +21,7 @@ import com.maxjin.a11y.ui.component.button.ButtonScreen
 import com.maxjin.a11y.ui.component.carousel.CarouselScreen
 import com.maxjin.a11y.ui.component.sheet.SheetScreen
 import com.maxjin.a11y.ui.component.snackbar.SnackbarScreen
+import com.maxjin.a11y.ui.component.textfield.TextFieldScreen
 import com.maxjin.a11y.ui.component.toggleswitch.ToggleSwitchScreen
 import com.maxjin.a11y.ui.home.HomeScreen
 import com.maxjin.a11y.ui.search.SearchScreen
@@ -50,9 +51,6 @@ fun NavGraph(
         composable(route = NavDestination.COMPONENT_RADIO_BUTTON.id) {
             // TODO
         }
-        composable(route = NavDestination.COMPONENT_TEXT_FIELD.id) {
-            // TODO
-        }
         composable(route = NavDestination.COMPONENT_SWITCH.id) {
             ToggleSwitchScreen(navigateUp = { navController.navigateUp() })
         }
@@ -67,6 +65,9 @@ fun NavGraph(
         }
         composable(route = NavDestination.COMPONENT_SHEET.id) {
             SheetScreen(navigateUp = { navController.navigateUp() })
+        }
+        composable(route = NavDestination.COMPONENT_TEXT_FIELD.id) {
+            TextFieldScreen(navigateUp = { navController.navigateUp() })
         }
     }
 }
