@@ -20,6 +20,7 @@ import com.maxjin.a11y.ui.component.alert.AlertDialogScreen
 import com.maxjin.a11y.ui.component.button.ButtonScreen
 import com.maxjin.a11y.ui.component.carousel.CarouselScreen
 import com.maxjin.a11y.ui.component.sheet.SheetScreen
+import com.maxjin.a11y.ui.component.slider.SliderScreen
 import com.maxjin.a11y.ui.component.snackbar.SnackbarScreen
 import com.maxjin.a11y.ui.component.textfield.TextFieldScreen
 import com.maxjin.a11y.ui.component.toggleswitch.ToggleSwitchScreen
@@ -68,6 +69,9 @@ fun NavGraph(
         }
         composable(route = NavDestination.COMPONENT_TEXT_FIELD.id) {
             TextFieldScreen(navigateUp = { navController.navigateUp() })
+        }
+        composable(route = NavDestination.COMPONENT_SLIDER.id) {
+            SliderScreen(navigateUp = { navController.navigateUp() })
         }
     }
 }
