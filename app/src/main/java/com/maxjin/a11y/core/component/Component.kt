@@ -31,7 +31,7 @@ data class Component(
                 Component("Pagination control", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Picker / Spinner / Dropdown", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Radio button", listOf("RadioButton"), available = false, navDestination = NavDestination.COMPONENT_RADIO_BUTTON),
-                Component("Range slider", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
+                Component("Slider", listOf("Range slider", "RadioButton"), available = true, navDestination = NavDestination.COMPONENT_SLIDER),
                 Component("Segmented Control / Tab", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Stepper", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Table row button", listOf("LazyColumn"), available = false, navDestination = NavDestination.COMPONENT_BUTTON),
