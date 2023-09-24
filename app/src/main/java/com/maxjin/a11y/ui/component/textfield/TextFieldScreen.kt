@@ -18,6 +18,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Clear
 import androidx.compose.material.icons.filled.Link
+import androidx.compose.material.icons.filled.Visibility
+import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -29,6 +31,7 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
@@ -36,6 +39,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
@@ -112,7 +117,8 @@ fun TextFieldScreen(navigateUp: () -> Unit = {}) {
                                     role = Role.Button
                                 )
                             )
-                        }
+                        },
+                        isError = textFieldValue.length > 5
                     )
                     TextFieldCommentsView(
                         text = "When using the TextField from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
@@ -123,6 +129,27 @@ fun TextFieldScreen(navigateUp: () -> Unit = {}) {
                             .fillMaxWidth()
                             .padding(top = dimenB5),
                         color = MaterialTheme.colorScheme.outlineVariant
+                    )
+                    TextFieldTitleView(
+                        "Password TextField", modifier = Modifier.padding(bottom = dimenB3, top = dimenB3)
+                    )
+                    var passwordValue by rememberSaveable { mutableStateOf("") }
+                    var passwordVisible by remember { mutableStateOf(false) }
+                    TextField(
+                        value = passwordValue,
+                        onValueChange = { passwordValue = it },
+                        modifier = Modifier.fillMaxWidth(),
+                        label = { Text(text = "Password") },
+                        visualTransformation = if (passwordVisible) VisualTransformation.None else PasswordVisualTransformation(),
+                        trailingIcon = {
+                            IconButton(onClick = { passwordVisible = !passwordVisible }) {
+                                Icon(
+                                    if (passwordVisible) Icons.Filled.VisibilityOff else Icons.Filled.Visibility,
+                                    contentDescription = if (passwordVisible) "hide password" else "Show password"
+                                )
+                            }
+                        },
+                        isError = passwordValue.length > 5
                     )
                 }
                 Text(
