@@ -38,7 +38,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
+import com.maxjin.a11y.ui.util.composable.CommentTextView
 import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
@@ -96,13 +98,13 @@ fun AlertDialogScreen(navigateUp: () -> Unit = {}) {
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                 ) {
-                    AlertDialogTitleView(
+                    TitleTextView(
                         "Regular Alert Dialog", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = { onAlertDialogOpen = true }) {
                         Text(text = "Open Alert Dialog")
                     }
-                    AlertDialogCommentsView(
+                    CommentTextView(
                         text = "When using the AlertDialog from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -133,34 +135,6 @@ fun AlertDialogScreen(navigateUp: () -> Unit = {}) {
                 }
             }
         }
-    )
-}
-
-@Composable
-fun AlertDialogTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
-    )
-}
-
-@Composable
-fun AlertDialogCommentsView(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyMedium
     )
 }
 

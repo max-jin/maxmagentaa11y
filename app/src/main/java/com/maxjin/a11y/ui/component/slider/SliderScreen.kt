@@ -47,8 +47,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
+import com.maxjin.a11y.ui.util.composable.CommentTextView
 import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
@@ -103,7 +105,7 @@ fun SliderScreen(navigateUp: () -> Unit = {}) {
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                 ) {
-                    SliderTitleView(
+                    TitleTextView(
                         "Regular Slider", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     var sliderPosition by remember { mutableStateOf(0f) }
@@ -120,7 +122,7 @@ fun SliderScreen(navigateUp: () -> Unit = {}) {
                             style = MaterialTheme.typography.titleSmall
                         )
                     }
-                    SliderTitleView(
+                    TitleTextView(
                         "Custom slider", modifier = Modifier.padding(bottom = dimenB3, top = dimenB3)
                     )
                     var sliderPosition1 by remember { mutableStateOf(0f) }
@@ -155,7 +157,7 @@ fun SliderScreen(navigateUp: () -> Unit = {}) {
                             style = MaterialTheme.typography.titleSmall
                         )
                     }
-                    SliderCommentsView(
+                    CommentTextView(
                         text = "When using the Slider from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -165,7 +167,7 @@ fun SliderScreen(navigateUp: () -> Unit = {}) {
                             .padding(top = dimenB5),
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
-                    SliderTitleView(
+                    TitleTextView(
                         "Range slider", modifier = Modifier.padding(bottom = dimenB3, top = dimenB5)
                     )
                     var sliderPosition2 by remember { mutableStateOf(0f..1f) }
@@ -184,7 +186,7 @@ fun SliderScreen(navigateUp: () -> Unit = {}) {
                         )
                     }
 
-                    SliderCommentsView(
+                    CommentTextView(
                         text = "With the Range slider from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -206,34 +208,6 @@ fun SliderScreen(navigateUp: () -> Unit = {}) {
                 Spacer(modifier = Modifier.height(dimenB5))
             }
         }
-    )
-}
-
-@Composable
-fun SliderTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
-    )
-}
-
-@Composable
-fun SliderCommentsView(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyMedium
     )
 }
 

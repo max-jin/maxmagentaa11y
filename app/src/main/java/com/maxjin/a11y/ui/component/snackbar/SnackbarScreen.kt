@@ -42,7 +42,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
+import com.maxjin.a11y.ui.util.composable.CommentTextView
 import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
@@ -119,7 +121,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                 ) {
-                    SnackbarTitleView(
+                    TitleTextView(
                         "Snackbar - No actions", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = {
@@ -131,7 +133,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                         Text(text = "Snackbar - No actions")
                     }
                     Spacer(modifier = Modifier.height(dimenB4))
-                    SnackbarTitleView(
+                    TitleTextView(
                         "Snackbar - With Dismiss Actions", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = {
@@ -144,7 +146,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                     }
                     Spacer(modifier = Modifier.height(dimenB4))
 
-                    SnackbarTitleView(
+                    TitleTextView(
                         "Snackbar - With Custom Action", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = {
@@ -157,7 +159,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                     }
                     Spacer(modifier = Modifier.height(dimenB4))
 
-                    SnackbarTitleView(
+                    TitleTextView(
                         "Snackbar - With Both Actions", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = {
@@ -170,7 +172,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                     }
                     Spacer(modifier = Modifier.height(dimenB3))
 
-                    SnackbarCommentsView(
+                    CommentTextView(
                         text = "When using the Snackbar from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -187,34 +189,6 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                 Spacer(modifier = Modifier.height(dimenB5))
             }
         }
-    )
-}
-
-@Composable
-fun SnackbarTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
-    )
-}
-
-@Composable
-fun SnackbarCommentsView(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyMedium
     )
 }
 

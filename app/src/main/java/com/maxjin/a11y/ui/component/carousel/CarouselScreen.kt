@@ -55,6 +55,7 @@ import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
 import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB10
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
@@ -109,7 +110,7 @@ fun CarouselScreen(navigateUp: () -> Unit = {}) {
                     .padding(innerPadding)
                     .verticalScroll(rememberScrollState())
             ) {
-                CarouselTitleView("Horizontal Carousel/Pager", modifier = Modifier.padding(horizontal = dimenB4))
+                TitleTextView("Horizontal Carousel/Pager", modifier = Modifier.padding(horizontal = dimenB4))
                 Spacer(modifier = Modifier.height(dimenB5))
                 val horizontalPagerState = rememberPagerState()
                 val horizontalPagerImages by rememberSaveable {
@@ -185,7 +186,7 @@ fun CarouselScreen(navigateUp: () -> Unit = {}) {
                     color = MaterialTheme.colorScheme.outlineVariant
                 )
                 Spacer(modifier = Modifier.height(dimenB5))
-                CarouselTitleView("Vertical Carousel/Pager", modifier = Modifier.padding(horizontal = dimenB4))
+                TitleTextView("Vertical Carousel/Pager", modifier = Modifier.padding(horizontal = dimenB4))
                 Spacer(modifier = Modifier.height(dimenB5))
                 val verticalPagerState = rememberPagerState()
                 val verticalPagerImages by rememberSaveable {
@@ -254,20 +255,6 @@ fun CarouselScreen(navigateUp: () -> Unit = {}) {
                 Spacer(modifier = Modifier.height(dimenB5))
             }
         }
-    )
-}
-
-@Composable
-fun CarouselTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
     )
 }
 

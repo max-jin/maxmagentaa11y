@@ -47,6 +47,8 @@ import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
 import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.CommentTextView
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
@@ -102,7 +104,7 @@ fun TextFieldScreen(navigateUp: () -> Unit = {}) {
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                 ) {
-                    TextFieldTitleView(
+                    TitleTextView(
                         "Regular TextField", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     TextField(
@@ -120,7 +122,7 @@ fun TextFieldScreen(navigateUp: () -> Unit = {}) {
                         },
                         isError = textFieldValue.length > 5
                     )
-                    TextFieldCommentsView(
+                    CommentTextView(
                         text = "When using the TextField from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -130,7 +132,7 @@ fun TextFieldScreen(navigateUp: () -> Unit = {}) {
                             .padding(top = dimenB5),
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
-                    TextFieldTitleView(
+                    TitleTextView(
                         "Password TextField", modifier = Modifier.padding(bottom = dimenB3, top = dimenB3)
                     )
                     var passwordValue by rememberSaveable { mutableStateOf("") }
@@ -163,34 +165,6 @@ fun TextFieldScreen(navigateUp: () -> Unit = {}) {
                 Spacer(modifier = Modifier.height(dimenB5))
             }
         }
-    )
-}
-
-@Composable
-fun TextFieldTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
-    )
-}
-
-@Composable
-fun TextFieldCommentsView(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyMedium
     )
 }
 

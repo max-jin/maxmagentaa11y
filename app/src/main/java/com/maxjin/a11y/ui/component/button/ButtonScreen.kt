@@ -45,8 +45,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
+import com.maxjin.a11y.ui.util.composable.CommentTextView
 import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB2
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
@@ -102,21 +104,21 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                 ) {
-                    ButtonTitleView(
+                    TitleTextView(
                         "Regular button", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = { /*TODO*/ }) {
                         Icon(Icons.Filled.Add, contentDescription = null)
                         Text(text = "Button", modifier = Modifier.padding(start = dimenB2))
                     }
-                    ButtonTitleView(
+                    TitleTextView(
                         "Disabled button", modifier = Modifier.padding(bottom = dimenB3, top = dimenB3)
                     )
                     Button(onClick = { /*TODO*/ }, enabled = false) {
                         Icon(Icons.Filled.Add, contentDescription = null)
                         Text(text = "Button", modifier = Modifier.padding(start = dimenB2))
                     }
-                    ButtonCommentsView(
+                    CommentTextView(
                         text = "When using the button from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -126,13 +128,13 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                             .padding(top = dimenB5),
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
-                    ButtonTitleView(
+                    TitleTextView(
                         "Icon button", modifier = Modifier.padding(bottom = dimenB3, top = dimenB5)
                     )
                     IconButton(onClick = { /*TODO*/ }) {
                         Icon(Icons.Filled.ThumbUp, contentDescription = "thumb up", tint = MaterialTheme.colorScheme.primary)
                     }
-                    ButtonCommentsView(
+                    CommentTextView(
                         text = "With the IconButton, make sure the icon has the proper content description for the accessibility.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -142,7 +144,7 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                             .padding(top = dimenB5),
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
-                    ButtonTitleView(
+                    TitleTextView(
                         "Custom button (Modifier.Clickable)", modifier = Modifier.padding(bottom = dimenB3, top = dimenB5)
                     )
                     Box(
@@ -175,7 +177,7 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                             imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = null, tint = MaterialTheme.colorScheme.background
                         )
                     }
-                    ButtonCommentsView(
+                    CommentTextView(
                         text = "For the custom button component with using Modifier clickable instead of native Composable, make sure the clickable block has the proper role - Button assigned and content description if needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -191,34 +193,6 @@ fun ButtonScreen(navigateUp: () -> Unit = {}) {
                 Spacer(modifier = Modifier.height(dimenB5))
             }
         }
-    )
-}
-
-@Composable
-fun ButtonTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
-    )
-}
-
-@Composable
-fun ButtonCommentsView(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyMedium
     )
 }
 

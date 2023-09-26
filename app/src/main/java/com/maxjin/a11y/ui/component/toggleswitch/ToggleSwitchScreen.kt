@@ -47,8 +47,10 @@ import androidx.compose.ui.unit.dp
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.RoundedCornerShapeMedium
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
+import com.maxjin.a11y.ui.util.composable.CommentTextView
 import com.maxjin.a11y.ui.util.composable.HorizontalDivider
 import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
@@ -107,7 +109,7 @@ fun ToggleSwitchScreen(navigateUp: () -> Unit = {}) {
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                 ) {
-                    ToggleSwitchTitleView(
+                    TitleTextView(
                         "Regular Switch", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Switch(
@@ -116,7 +118,7 @@ fun ToggleSwitchScreen(navigateUp: () -> Unit = {}) {
                             onRegularSwitchChecked = !onRegularSwitchChecked
                         }
                     )
-                    ToggleSwitchTitleView(
+                    TitleTextView(
                         "Disabled Switch", modifier = Modifier.padding(bottom = dimenB3, top = dimenB3)
                     )
                     Switch(
@@ -124,7 +126,7 @@ fun ToggleSwitchScreen(navigateUp: () -> Unit = {}) {
                         onCheckedChange = {},
                         enabled = false
                     )
-                    ToggleSwitchCommentsView(
+                    CommentTextView(
                         text = "When using the Switch from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -134,7 +136,7 @@ fun ToggleSwitchScreen(navigateUp: () -> Unit = {}) {
                             .padding(top = dimenB5),
                         color = MaterialTheme.colorScheme.outlineVariant
                     )
-                    ToggleSwitchTitleView(
+                    TitleTextView(
                         "Custom Switch - (Modifier.toggleable)", modifier = Modifier.padding(bottom = dimenB3, top = dimenB5)
                     )
                     Box(
@@ -165,7 +167,7 @@ fun ToggleSwitchScreen(navigateUp: () -> Unit = {}) {
                             onCheckedChange = null
                         )
                     }
-                    ToggleSwitchCommentsView(
+                    CommentTextView(
                         text = "For the custom toggle switch component with using Modifier toggleable instead of native Composable, make sure the toggleable block has the proper role - Switch assigned. Also toggleable will group the child switch and text together automatically.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -181,34 +183,6 @@ fun ToggleSwitchScreen(navigateUp: () -> Unit = {}) {
                 Spacer(modifier = Modifier.height(dimenB5))
             }
         }
-    )
-}
-
-@Composable
-fun ToggleSwitchTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
-    )
-}
-
-@Composable
-fun ToggleSwitchCommentsView(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyMedium
     )
 }
 

@@ -51,7 +51,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
+import com.maxjin.a11y.ui.util.composable.CommentTextView
 import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
@@ -115,7 +117,7 @@ fun SheetScreen(navigateUp: () -> Unit = {}) {
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                 ) {
-                    SheetTitleView(
+                    TitleTextView(
                         "Bottom Sheet", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Row(
@@ -136,7 +138,7 @@ fun SheetScreen(navigateUp: () -> Unit = {}) {
                     Button(onClick = { openBottomSheet = !openBottomSheet }) {
                         Text(text = "Show Bottom Sheet")
                     }
-                    SheetCommentsView(
+                    CommentTextView(
                         text = "When using the Bottom Sheet from native composable (ModalBottomSheet), the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -189,34 +191,6 @@ fun SheetScreen(navigateUp: () -> Unit = {}) {
                 }
             }
         }
-    )
-}
-
-@Composable
-fun SheetTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
-    )
-}
-
-@Composable
-fun SheetCommentsView(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyMedium
     )
 }
 
