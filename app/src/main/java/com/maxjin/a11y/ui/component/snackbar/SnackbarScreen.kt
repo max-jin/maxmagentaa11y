@@ -14,11 +14,8 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Close
-import androidx.compose.material.icons.filled.Link
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -29,34 +26,33 @@ import androidx.compose.material3.SnackbarHost
 import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
-import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
-import androidx.compose.ui.platform.LocalUriHandler
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.maxjin.a11y.ui.theme.MagentaA11yTheme
+import com.maxjin.a11y.ui.util.composable.AppTopAppBarState
 import com.maxjin.a11y.ui.util.composable.CodeSnippet
-import com.maxjin.a11y.ui.util.composable.LargeTopBar
+import com.maxjin.a11y.ui.util.composable.CommentTextView
+import com.maxjin.a11y.ui.util.composable.LinkAction
+import com.maxjin.a11y.ui.util.composable.TitleTextView
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
-import com.maxjin.a11y.ui.util.ext.verticalGradient
 import com.maxjin.a11y.util.AppUtil
 import com.maxjin.a11y.util.component.Snackbar
 import kotlinx.coroutines.launch
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SnackbarScreen(navigateUp: () -> Unit = {}) {
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
-    val urlHandler = LocalUriHandler.current
-
+fun SnackbarScreen(modifier: Modifier = Modifier, setTopBar: (AppTopAppBarState) -> Unit) {
+    LaunchedEffect(Unit) {
+        setTopBar(AppTopAppBarState(title = "Snackbar", linkAction = LinkAction(url = AppUtil.WebLinks.SNACKBAR_URL)))
+    }
     // This components provides only the visuals of the Snackbar. If you need to show a Snackbar with defaults on the screen,
     // use SnackbarHostState.showSnackbar:
     val snackbarHostState = remember { SnackbarHostState() }
@@ -80,36 +76,9 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
             }
         },
         containerColor = Color.Transparent,
-        modifier = Modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .verticalGradient(),
-        topBar = {
-            LargeTopBar(
-                title = "Snackbar",
-                scrollBehavior = scrollBehavior,
-                navigationIcon = {
-                    IconButton(onClick = navigateUp) {
-                        Icon(
-                            imageVector = Icons.Filled.ArrowBack,
-                            contentDescription = "Navigate up"
-                        )
-                    }
-                },
-                actions = {
-                    IconButton(onClick = {
-                        urlHandler.openUri(AppUtil.WebLinks.SNACKBAR_URL)
-                    }) {
-                        Icon(
-                            imageVector = Icons.Filled.Link,
-                            contentDescription = "Magenta A11y Snackbar page"
-                        )
-                    }
-                }
-            )
-        },
         content = { innerPadding ->
             Column(
-                modifier = Modifier
+                modifier = modifier
                     .fillMaxSize()
                     .padding(innerPadding)
                     .verticalScroll(rememberScrollState())
@@ -119,7 +88,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                         .fillMaxWidth()
                         .padding(horizontal = dimenB4)
                 ) {
-                    SnackbarTitleView(
+                    TitleTextView(
                         "Snackbar - No actions", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = {
@@ -131,7 +100,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                         Text(text = "Snackbar - No actions")
                     }
                     Spacer(modifier = Modifier.height(dimenB4))
-                    SnackbarTitleView(
+                    TitleTextView(
                         "Snackbar - With Dismiss Actions", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = {
@@ -144,7 +113,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                     }
                     Spacer(modifier = Modifier.height(dimenB4))
 
-                    SnackbarTitleView(
+                    TitleTextView(
                         "Snackbar - With Custom Action", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = {
@@ -157,7 +126,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                     }
                     Spacer(modifier = Modifier.height(dimenB4))
 
-                    SnackbarTitleView(
+                    TitleTextView(
                         "Snackbar - With Both Actions", modifier = Modifier.padding(bottom = dimenB3)
                     )
                     Button(onClick = {
@@ -170,7 +139,7 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
                     }
                     Spacer(modifier = Modifier.height(dimenB3))
 
-                    SnackbarCommentsView(
+                    CommentTextView(
                         text = "When using the Snackbar from native composable, the default behavior will cover the accessibility, no extra actions are needed.",
                         modifier = Modifier.padding(top = dimenB3)
                     )
@@ -190,38 +159,10 @@ fun SnackbarScreen(navigateUp: () -> Unit = {}) {
     )
 }
 
-@Composable
-fun SnackbarTitleView(
-    title: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = title,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.titleMedium
-    )
-}
-
-@Composable
-fun SnackbarCommentsView(
-    text: String,
-    modifier: Modifier = Modifier
-) {
-    Text(
-        text = text,
-        modifier = modifier.fillMaxWidth(),
-        textAlign = TextAlign.Start,
-        color = MaterialTheme.colorScheme.onBackground,
-        style = MaterialTheme.typography.bodyMedium
-    )
-}
-
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun SnackbarScreenPreview() {
     MagentaA11yTheme {
-        SnackbarScreen(navigateUp = {})
+        SnackbarScreen(setTopBar = {})
     }
 }
