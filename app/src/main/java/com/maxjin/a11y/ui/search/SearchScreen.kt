@@ -33,6 +33,7 @@ import androidx.compose.material3.SearchBar
 import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -50,27 +51,30 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.zIndex
 import com.maxjin.a11y.core.component.Component
 import com.maxjin.a11y.ui.nav.NavDestination
-import com.maxjin.a11y.ui.theme.MagentaA11yTheme
+import com.maxjin.a11y.ui.theme.MagentaA11yThemePreview
 import com.maxjin.a11y.ui.util.RoundedCornerShapeMedium
+import com.maxjin.a11y.ui.util.composable.AppTopAppBarState
 import com.maxjin.a11y.ui.util.dimenB10
 import com.maxjin.a11y.ui.util.dimenB2
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB5
 import com.maxjin.a11y.ui.util.dimenB6
-import com.maxjin.a11y.ui.util.ext.verticalGradient
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchScreen(
+    modifier: Modifier = Modifier,
     navigateUp: () -> Unit = {},
-    navigateAction: (NavDestination) -> Unit
+    navigateAction: (NavDestination) -> Unit,
+    setTopBar: (AppTopAppBarState) -> Unit
 ) {
     var searchQuery by rememberSaveable { mutableStateOf("") }
     var onSearchBarActive by rememberSaveable { mutableStateOf(false) }
+    LaunchedEffect(Unit) {
+        setTopBar(AppTopAppBarState(enable = false))
+    }
     Box(
-        Modifier
-            .fillMaxSize()
-            .verticalGradient(),
+        modifier.fillMaxSize(),
     ) {
         // Talkback focus order sorts based on x and y position before considering z-index. The
         // extra Box with semantics and fillMaxWidth is a workaround to get the search bar to focus
@@ -194,7 +198,7 @@ fun SearchScreen(
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun SearchScreenPreview() {
-    MagentaA11yTheme {
-        SearchScreen(navigateUp = {}, navigateAction = {})
+    MagentaA11yThemePreview {
+        SearchScreen(navigateUp = {}, navigateAction = {}, setTopBar = {})
     }
 }

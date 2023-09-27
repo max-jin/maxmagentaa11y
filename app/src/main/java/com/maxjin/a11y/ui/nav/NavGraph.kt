@@ -11,8 +11,11 @@ import androidx.compose.animation.core.snap
 import androidx.compose.animation.fadeIn
 import androidx.compose.animation.fadeOut
 import androidx.compose.animation.slideInVertically
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
@@ -26,22 +29,27 @@ import com.maxjin.a11y.ui.component.textfield.TextFieldScreen
 import com.maxjin.a11y.ui.component.toggleswitch.ToggleSwitchScreen
 import com.maxjin.a11y.ui.home.HomeScreen
 import com.maxjin.a11y.ui.search.SearchScreen
+import com.maxjin.a11y.ui.util.composable.AppTopAppBarState
 import com.maxjin.a11y.ui.util.ext.navigateToComponent
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NavGraph(
+    modifier: Modifier = Modifier,
+    setTopBar: (AppTopAppBarState) -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior,
     navController: NavHostController,
     startDestination: String = NavDestination.APP_HOME.id
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(route = NavDestination.APP_HOME.id) {
-            HomeScreen(navigateAction = { navController.navigateToComponent(it) })
+            HomeScreen(modifier = modifier, setTopBar = setTopBar, navigateAction = { navController.navigateToComponent(it) }, scrollBehavior = scrollBehavior )
         }
         composable(route = NavDestination.APP_SEARCH.id) {
-            SearchScreen(navigateUp = { navController.navigateUp() }, navigateAction = { navController.navigateToComponent(it) })
+            SearchScreen(modifier = modifier, navigateUp = { navController.navigateUp() }, navigateAction = { navController.navigateToComponent(it) }, setTopBar = setTopBar)
         }
         composable(route = NavDestination.COMPONENT_BUTTON.id) {
-            ButtonScreen(navigateUp = { navController.navigateUp() })
+            ButtonScreen(modifier = modifier, setTopBar = setTopBar)
         }
         composable(route = NavDestination.COMPONENT_CHECKBOX.id) {
             // TODO
@@ -53,25 +61,25 @@ fun NavGraph(
             // TODO
         }
         composable(route = NavDestination.COMPONENT_SWITCH.id) {
-            ToggleSwitchScreen(navigateUp = { navController.navigateUp() })
+            ToggleSwitchScreen(modifier = modifier, setTopBar = setTopBar)
         }
         composable(route = NavDestination.COMPONENT_ALERT_DIALOG.id) {
-            AlertDialogScreen(navigateUp = { navController.navigateUp() })
+            AlertDialogScreen(modifier = modifier, setTopBar = setTopBar)
         }
         composable(route = NavDestination.COMPONENT_SNACKBAR.id) {
-            SnackbarScreen(navigateUp = { navController.navigateUp() })
+            SnackbarScreen(modifier = modifier, setTopBar = setTopBar)
         }
         composable(route = NavDestination.COMPONENT_CAROUSEL.id) {
-            CarouselScreen(navigateUp = { navController.navigateUp() })
+            CarouselScreen(modifier = modifier, setTopBar = setTopBar)
         }
         composable(route = NavDestination.COMPONENT_SHEET.id) {
-            SheetScreen(navigateUp = { navController.navigateUp() })
+            SheetScreen(modifier = modifier, setTopBar = setTopBar)
         }
         composable(route = NavDestination.COMPONENT_TEXT_FIELD.id) {
-            TextFieldScreen(navigateUp = { navController.navigateUp() })
+            TextFieldScreen(modifier = modifier, setTopBar = setTopBar)
         }
         composable(route = NavDestination.COMPONENT_SLIDER.id) {
-            SliderScreen(navigateUp = { navController.navigateUp() })
+            SliderScreen(modifier = modifier, setTopBar = setTopBar)
         }
     }
 }

@@ -19,15 +19,14 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
-import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -35,7 +34,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -43,85 +41,68 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.maxjin.a11y.core.component.Component
 import com.maxjin.a11y.core.component.ComponentType
 import com.maxjin.a11y.ui.nav.NavDestination
-import com.maxjin.a11y.ui.theme.MagentaA11yTheme
+import com.maxjin.a11y.ui.theme.MagentaA11yThemePreview
 import com.maxjin.a11y.ui.util.RoundedCornerShapeLarge
+import com.maxjin.a11y.ui.util.composable.AppTopAppBarState
 import com.maxjin.a11y.ui.util.composable.HorizontalDivider
-import com.maxjin.a11y.ui.util.composable.LargeTopBar
 import com.maxjin.a11y.ui.util.dimenB0
 import com.maxjin.a11y.ui.util.dimenB1
 import com.maxjin.a11y.ui.util.dimenB3
 import com.maxjin.a11y.ui.util.dimenB4
 import com.maxjin.a11y.ui.util.dimenB5
-import com.maxjin.a11y.ui.util.ext.verticalGradient
 
-// TODO ADD Component screens - Button, Link, CheckBox, Toggle Switch,
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     modifier: Modifier = Modifier,
-    navigateAction: (NavDestination) -> Unit
+    navigateAction: (NavDestination) -> Unit,
+    setTopBar: (AppTopAppBarState) -> Unit,
+    scrollBehavior: TopAppBarScrollBehavior
 ) {
-    val scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior()
     val topAppBarOnCollapse by remember { derivedStateOf { scrollBehavior.state.collapsedFraction > 0.2f } }
-
-    Scaffold(
-        containerColor = Color.Transparent,
-        modifier = Modifier
-            .nestedScroll(scrollBehavior.nestedScrollConnection)
-            .verticalGradient(),
-        topBar = {
-            LargeTopBar(
+    LaunchedEffect(topAppBarOnCollapse) {
+        setTopBar(
+            AppTopAppBarState(
                 title = if (topAppBarOnCollapse) "Magenta A11y" else "Welcome to \nMagenta A11y",
-                scrollBehavior = scrollBehavior,
-                actions = {
-                    IconButton(onClick = { navigateAction(NavDestination.APP_SEARCH) }) {
-                        Icon(
-                            imageVector = Icons.Filled.Search,
-                            contentDescription = "Search Component"
-                        )
-                    }
-                },
+                enableNavUp = false, enableSearch = true
             )
-        },
-        content = { innerPadding ->
-            Column(
-                modifier = modifier
-                    .padding(innerPadding)
-                    .fillMaxSize()
-                    .verticalScroll(rememberScrollState())
-            ) {
-                HomeCardTitle(
-                    "Accessibility checklist", modifier = Modifier.padding(start = dimenB4, bottom = dimenB1),
-                    style = MaterialTheme.typography.titleMedium
-                )
-                Component.allComponents.let { list ->
-                    list.filter { it.available }.let { availableList ->
-                        HomeCardTitle("Controls", modifier = Modifier.padding(start = dimenB5, top = dimenB4, bottom = dimenB3))
-                        HomeCard(availableList.filter { it.type == ComponentType.CONTROL }, navigateAction)
-                        HomeCardTitle("Notifications", modifier = Modifier.padding(start = dimenB5, top = dimenB4, bottom = dimenB3))
-                        HomeCard(availableList.filter { it.type == ComponentType.NOTIFICATION }, navigateAction)
-                    }
-                    HomeCardTitle("Work in progress", modifier = Modifier.padding(start = dimenB5, top = dimenB4, bottom = dimenB3))
-                    HomeCard(list.filter { !it.available }, navigateAction)
-                }
-                Spacer(modifier = Modifier.height(dimenB5))
-                Column(
-                    modifier = Modifier.padding(horizontal = dimenB3),
-                    horizontalAlignment = Alignment.CenterHorizontally
-                ) {
-                    Text(
-                        text = "The accessibility acceptance criteria testing checklist generated by T-Mobile - Accessibility Resource Center",
-                        style = MaterialTheme.typography.bodySmall,
-                        textAlign = TextAlign.Center,
-                        color = MaterialTheme.colorScheme.tertiary
-                    )
-                    Text(text = "Developed by MAX JIN", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
-                    Text(text = "App Version: 1.0.0", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
-                }
-                Spacer(modifier = Modifier.height(dimenB5))
+        )
+    }
+    Column(
+        modifier = modifier
+            .fillMaxSize()
+            .verticalScroll(rememberScrollState())
+    ) {
+        HomeCardTitle(
+            "Accessibility checklist", modifier = Modifier.padding(start = dimenB4, bottom = dimenB1),
+            style = MaterialTheme.typography.titleMedium
+        )
+        Component.allComponents.let { list ->
+            list.filter { it.available }.let { availableList ->
+                HomeCardTitle("Controls", modifier = Modifier.padding(start = dimenB5, top = dimenB4, bottom = dimenB3))
+                HomeCard(availableList.filter { it.type == ComponentType.CONTROL }, navigateAction)
+                HomeCardTitle("Notifications", modifier = Modifier.padding(start = dimenB5, top = dimenB4, bottom = dimenB3))
+                HomeCard(availableList.filter { it.type == ComponentType.NOTIFICATION }, navigateAction)
             }
+            HomeCardTitle("Work in progress", modifier = Modifier.padding(start = dimenB5, top = dimenB4, bottom = dimenB3))
+            HomeCard(list.filter { !it.available }, navigateAction)
         }
-    )
+        Spacer(modifier = Modifier.height(dimenB5))
+        Column(
+            modifier = Modifier.padding(horizontal = dimenB3),
+            horizontalAlignment = Alignment.CenterHorizontally
+        ) {
+            Text(
+                text = "The accessibility acceptance criteria testing checklist generated by T-Mobile - Accessibility Resource Center",
+                style = MaterialTheme.typography.bodySmall,
+                textAlign = TextAlign.Center,
+                color = MaterialTheme.colorScheme.tertiary
+            )
+            Text(text = "Developed by MAX JIN", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
+            Text(text = "App Version: 1.0.0", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
+        }
+        Spacer(modifier = Modifier.height(dimenB5))
+    }
 }
 
 @Composable
@@ -193,10 +174,11 @@ fun HomeCard(buttonList: List<Component>, navigateAction: (NavDestination) -> Un
     }
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Preview(showBackground = true, showSystemUi = false)
 @Composable
 fun HomeScreenPreview() {
-    MagentaA11yTheme {
-        HomeScreen(navigateAction = {})
+    MagentaA11yThemePreview {
+        HomeScreen(navigateAction = {}, setTopBar = {}, scrollBehavior = TopAppBarDefaults.exitUntilCollapsedScrollBehavior())
     }
 }
