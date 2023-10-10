@@ -99,7 +99,7 @@ fun HomeScreen(
                 color = MaterialTheme.colorScheme.tertiary
             )
             Text(text = "Developed by MAX JIN", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
-            Text(text = "App Version: 1.0.0", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
+            Text(text = "App Version: 1.0.0-snapshot", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.tertiary)
         }
         Spacer(modifier = Modifier.height(dimenB5))
     }

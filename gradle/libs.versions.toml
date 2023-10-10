@@ -3,7 +3,7 @@ minSdk = "24"
 compileSdk = "33"
 targetSdk = "33"
 versionCode = "10000"
-versionName = "1.0.0"
+versionName = "1.0.0-snapshot"
 
 andoirdxCore = "1.10.1"
 kotlinBom = "1.8.0"

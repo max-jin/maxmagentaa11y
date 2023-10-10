@@ -33,6 +33,7 @@ data class Component(
                 Component("Radio button", listOf("RadioButton"), available = false, navDestination = NavDestination.COMPONENT_RADIO_BUTTON),
                 Component("Slider", listOf("Range slider", "RadioButton"), available = true, navDestination = NavDestination.COMPONENT_SLIDER),
                 Component("Tab", listOf("Segmented Control"), available = true, navDestination = NavDestination.COMPONENT_TAB),
+                Component("Chip", listOf("Segmented Control"), available = true, navDestination = NavDestination.COMPONENT_CHIP),
                 Component("Stepper", available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Table row button", listOf("LazyColumn"), available = false, navDestination = NavDestination.COMPONENT_BUTTON),
                 Component("Text input", listOf("TextField", "Text fields"), available = true, navDestination = NavDestination.COMPONENT_TEXT_FIELD),

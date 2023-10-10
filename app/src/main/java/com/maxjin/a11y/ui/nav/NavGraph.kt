@@ -22,6 +22,7 @@ import androidx.navigation.compose.composable
 import com.maxjin.a11y.ui.component.alert.AlertDialogScreen
 import com.maxjin.a11y.ui.component.button.ButtonScreen
 import com.maxjin.a11y.ui.component.carousel.CarouselScreen
+import com.maxjin.a11y.ui.component.chip.ChipScreen
 import com.maxjin.a11y.ui.component.sheet.SheetScreen
 import com.maxjin.a11y.ui.component.slider.SliderScreen
 import com.maxjin.a11y.ui.component.snackbar.SnackbarScreen
@@ -84,6 +85,9 @@ fun NavGraph(
         }
         composable(route = NavDestination.COMPONENT_TAB.id) {
             TabScreen(modifier = modifier, setTopBar = setTopBar)
+        }
+        composable(route = NavDestination.COMPONENT_CHIP.id) {
+            ChipScreen(modifier = modifier, setTopBar = setTopBar)
         }
     }
 }
