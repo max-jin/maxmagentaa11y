@@ -18,6 +18,8 @@ object AppUtil {
         const val SHEET_URL = "$MAGENTA_A11Y_NATIVE_HOST/sheet/"
         const val TEXTFIELD_URL = "$MAGENTA_A11Y_NATIVE_HOST/text-input/"
         const val SLIDER_URL = "$MAGENTA_A11Y_NATIVE_HOST/snackbar-toast/" // TODO Update the url when ready
+        const val TAB_URL = "$MAGENTA_A11Y_NATIVE_HOST/snackbar-toast/" // TODO Update the url when ready
+
     }
 
 }

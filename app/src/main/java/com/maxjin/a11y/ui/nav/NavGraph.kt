@@ -25,6 +25,7 @@ import com.maxjin.a11y.ui.component.carousel.CarouselScreen
 import com.maxjin.a11y.ui.component.sheet.SheetScreen
 import com.maxjin.a11y.ui.component.slider.SliderScreen
 import com.maxjin.a11y.ui.component.snackbar.SnackbarScreen
+import com.maxjin.a11y.ui.component.tab.TabScreen
 import com.maxjin.a11y.ui.component.textfield.TextFieldScreen
 import com.maxjin.a11y.ui.component.toggleswitch.ToggleSwitchScreen
 import com.maxjin.a11y.ui.home.HomeScreen
@@ -80,6 +81,9 @@ fun NavGraph(
         }
         composable(route = NavDestination.COMPONENT_SLIDER.id) {
             SliderScreen(modifier = modifier, setTopBar = setTopBar)
+        }
+        composable(route = NavDestination.COMPONENT_TAB.id) {
+            TabScreen(modifier = modifier, setTopBar = setTopBar)
         }
     }
 }
